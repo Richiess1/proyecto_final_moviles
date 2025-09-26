@@ -1,5 +1,4 @@
 import 'package:go_router/go_router.dart';
-// Update the import path to match your project structure, for example:
 import '../../screens/screens.dart'; // screens.dart
 
 final GoRouter appRouter = GoRouter(
@@ -13,6 +12,17 @@ final GoRouter appRouter = GoRouter(
       path: '/login',
       name: LoginPage.name,
       builder: (context, state) => const LoginPage(),
+    ),
+
+    GoRoute(
+      path: '/buscar',
+      name: CategoriesPage.name,
+      builder: (context, state) => const CategoriesPage(),
+    ),
+    GoRoute(
+      path: '/perfil',
+      name: ProfilePage.name,
+      builder: (context, state) => const ProfilePage(),
     ),
   ],
 );

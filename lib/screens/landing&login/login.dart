@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -114,7 +116,7 @@ class LoginPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      onPressed: () {},
+                      onPressed: () => context.go('/buscar'),
                       child: const Text(
                         "Iniciar Sesión / Registrarse",
                         style: TextStyle(fontSize: 16, color: Colors.white),
