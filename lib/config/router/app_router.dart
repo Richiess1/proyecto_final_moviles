@@ -24,5 +24,10 @@ final GoRouter appRouter = GoRouter(
       name: ProfilePage.name,
       builder: (context, state) => const ProfilePage(),
     ),
+    GoRoute(
+      path: '/home',
+      name: HomeScreen.name,
+      builder: (context, state) => const HomeScreen(),
+    ),
   ],
 );

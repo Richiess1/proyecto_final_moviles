@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   static const String name = 'LoginPage';
@@ -38,10 +37,7 @@ class LoginPage extends StatelessWidget {
                   // Bienvenido
                   const Text(
                     "Bienvenido!",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 20),
 
@@ -52,8 +48,10 @@ class LoginPage extends StatelessWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 14,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -66,8 +64,10 @@ class LoginPage extends StatelessWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 14,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -116,7 +116,11 @@ class LoginPage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      onPressed: () => context.go('/buscar'),
+                      onPressed: () {
+                        // Aquí iría tu lógica de validación (ejemplo: Firebase, API, etc.)
+                        // Si es válido, navega al Home
+                        context.go('/home');
+                      },
                       child: const Text(
                         "Iniciar Sesión / Registrarse",
                         style: TextStyle(fontSize: 16, color: Colors.white),
