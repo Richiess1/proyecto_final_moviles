@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'navBar.dart' as customNavBar;
+import 'nav_bar.dart' as customNavBar;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -88,7 +88,7 @@ class HomeScreen extends StatelessWidget {
       ),
 
       // Bottom Navigation
-      bottomNavigationBar: customNavBar.NavigationBar(),
+      bottomNavigationBar: customNavBar.NavBar(currentIndex: 0),
     );
   }
 

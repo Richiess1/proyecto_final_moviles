@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../home/nav_bar.dart' as customNavBar;
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -64,9 +65,9 @@ class ProfilePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Contactar')),
-                  ),
+                  onPressed: () => ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(const SnackBar(content: Text('Contactar'))),
                   child: const Text(
                     'Contactar',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
@@ -117,9 +118,7 @@ class ProfilePage extends StatelessWidget {
                           const SizedBox(height: 6),
                           Text(
                             w.caption,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
+                            style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
@@ -162,33 +161,7 @@ class ProfilePage extends StatelessWidget {
       ),
 
       // Bottom nav inline
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 3, // 0: Inicio, 1: Buscar, 2: Mis Servicios, 3: Perfil
-        type: BottomNavigationBarType.fixed,
-        onTap: (i) {
-          if (i == 3) return;
-          switch (i) {
-            case 0:
-              context.go('/');
-              break;
-            case 1:
-              context.go('/buscar');
-              break;
-            case 2:
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Mis Servicios: pendiente')),
-              );
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Inicio'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Buscar'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.inventory_2_outlined), label: 'Mis Servicios'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Perfil'),
-        ],
-      ),
+      bottomNavigationBar: customNavBar.NavBar(currentIndex: 3),
     );
   }
 }
@@ -203,9 +176,9 @@ class _SectionTitle extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
       ),
     );
   }
@@ -231,10 +204,7 @@ class _ServiceCard extends StatelessWidget {
           children: [
             Icon(icon, size: 20, color: const Color(0xFF0D2B45)),
             const SizedBox(width: 8),
-            Text(
-              label,
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
+            Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
           ],
         ),
       ),
@@ -284,12 +254,18 @@ class _TestimonialCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name,
-                        style: textTheme.titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w700)),
-                    Text(when,
-                        style: textTheme.bodySmall
-                            ?.copyWith(color: Colors.black54)),
+                    Text(
+                      name,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      when,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: Colors.black54,
+                      ),
+                    ),
                   ],
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../home/nav_bar.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -33,9 +34,9 @@ class CategoriesPage extends StatelessWidget {
               // Barra de búsqueda (no funcional)
               TextField(
                 readOnly: true,
-                onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Búsqueda')),
-                ),
+                onTap: () => ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(const SnackBar(content: Text('Búsqueda'))),
                 decoration: InputDecoration(
                   hintText: 'Buscar',
                   prefixIcon: const Icon(Icons.search),
@@ -107,33 +108,7 @@ class CategoriesPage extends StatelessWidget {
       ),
 
       // Bottom nav inline
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1, // 0: Inicio, 1: Buscar, 2: Mis Servicios, 3: Perfil
-        type: BottomNavigationBarType.fixed,
-        onTap: (i) {
-          if (i == 1) return;
-          switch (i) {
-            case 0:
-              context.go('/');
-              break;
-            case 2:
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Mis Servicios: pendiente')),
-              );
-              break;
-            case 3:
-              context.go('/perfil');
-              break;
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Inicio'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Buscar'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.inventory_2_outlined), label: 'Mis Servicios'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Perfil'),
-        ],
-      ),
+      bottomNavigationBar: const NavBar(currentIndex: 1),
     );
   }
 }
@@ -146,18 +121,30 @@ class _Cat {
 }
 
 const _categories = <_Cat>[
-  _Cat('Electricistas',
-      'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=800'),
-  _Cat('Fontaneros',
-      'https://images.unsplash.com/photo-1562232576-cd4b4e42e6f5?w=800'),
-  _Cat('Pintores',
-      'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=800'),
-  _Cat('Carpinteros',
-      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800'),
-  _Cat('Jardineros',
-      'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800'),
-  _Cat('Limpieza',
-      'https://images.unsplash.com/photo-1581578017421-38b6a6b98d0a?w=800'),
+  _Cat(
+    'Electricistas',
+    'https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=800',
+  ),
+  _Cat(
+    'Fontaneros',
+    'https://images.unsplash.com/photo-1562232576-cd4b4e42e6f5?w=800',
+  ),
+  _Cat(
+    'Pintores',
+    'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=800',
+  ),
+  _Cat(
+    'Carpinteros',
+    'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800',
+  ),
+  _Cat(
+    'Jardineros',
+    'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=800',
+  ),
+  _Cat(
+    'Limpieza',
+    'https://images.unsplash.com/photo-1581578017421-38b6a6b98d0a?w=800',
+  ),
 ];
 
 /* ==============  WIDGETS DE LA PANTALLA  ============== */
@@ -254,8 +241,9 @@ class _RecommendedTile extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,
-                      style: theme.textTheme.bodyMedium
-                          ?.copyWith(color: Colors.black54),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: Colors.black54,
+                      ),
                     ),
                   ],
                 ),
@@ -273,7 +261,9 @@ class _RecommendedTile extends StatelessWidget {
                     width: 96,
                     height: 96,
                     color: Colors.grey.shade200,
-                    child: const Center(child: Icon(Icons.broken_image_outlined)),
+                    child: const Center(
+                      child: Icon(Icons.broken_image_outlined),
+                    ),
                   ),
                 ),
               ),
