@@ -15,7 +15,7 @@ class NavBar extends StatelessWidget {
         context.go('/buscar'); // Buscar
         break;
       case 2:
-        context.go('/mis_servicios'); // Mis Servicios
+        context.go('/servicios'); // Mis Servicios
         break;
       case 3:
         context.go('/perfil'); // Perfil

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Fixea',
       theme: AppTheme(
-        selectedColor: 3, // rojo, por ejemplo
+        selectedColor: 3, 
         isDarkMode: false,
       ).getTheme(),
       routerConfig: appRouter,
