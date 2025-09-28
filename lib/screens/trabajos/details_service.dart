@@ -188,12 +188,12 @@ class DetailsServicePage extends StatelessWidget {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () {},
-                  child: const Text("Mensaje"),
                   style: OutlinedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
+                  child: const Text("Mensaje"),
                 ),
               ),
             ],
@@ -201,7 +201,6 @@ class DetailsServicePage extends StatelessWidget {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () {},
-            child: const Text("Dejar una reseña"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(vertical: 16),
@@ -209,6 +208,7 @@ class DetailsServicePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
+            child: const Text("Dejar una reseña"),
           ),
         ],
       ),

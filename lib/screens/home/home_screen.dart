@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/theme_provider.dart';
 import 'nav_bar.dart' as customNavBar;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
   static const String name = 'HomeScreen';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(themeNotifierProvider).isDarkMode;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fixea", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -22,7 +26,7 @@ class HomeScreen extends StatelessWidget {
         child: ListView(
           children: [
             const Text(
-              "Hola, Sofía",
+              "Hola, Ricardo",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
@@ -39,6 +43,17 @@ class HomeScreen extends StatelessWidget {
                   borderSide: BorderSide.none,
                 ),
               ),
+            ),
+
+            const SizedBox(height: 20),
+
+            //El switch de tema
+            SwitchListTile(
+              title: const Text("Modo oscuro"),
+              value: isDarkMode,
+              onChanged: (_) {
+                ref.read(themeNotifierProvider.notifier).toggleDarkmode();
+              },
             ),
 
             const SizedBox(height: 20),
@@ -122,5 +137,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-

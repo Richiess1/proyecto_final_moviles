@@ -23,7 +23,7 @@ class MyServicesPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView( // 👈 CAMBIO IMPORTANTE
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +44,7 @@ class MyServicesPage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Filtros (no funcionales)
+              // Filtros
               Row(
                 children: [
                   _FilterChip(label: "Todos", selected: true),
@@ -74,7 +74,6 @@ class MyServicesPage extends StatelessWidget {
                 date: "1 de julio",
                 service: "Reparación de muebles",
               ),
-              
 
               const SizedBox(height: 24),
 
@@ -86,14 +85,12 @@ class MyServicesPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              
               _JobTile(
                 client: "Carlos Ramirez",
                 date: "20 de julio, 2:00 PM",
                 service: "Instalación de lámparas",
-                actionText: "Calificar",
+                actionText: "Ver detalles",
                 onTap: () {
-                  // Navegar a la pantalla de detalles
                   GoRouter.of(context).go('/servicio/detalles');
                 },
               ),
@@ -101,7 +98,7 @@ class MyServicesPage extends StatelessWidget {
                 client: "Juan Pérez",
                 date: "5 de julio",
                 service: "Pintura de interiores",
-                actionText: "Ver Pago",
+                actionText: "Ver detalles",
               ),
             ],
           ),

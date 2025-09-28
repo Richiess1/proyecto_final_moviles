@@ -14,7 +14,7 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
   String? selectedDate;
   String? selectedTime;
   String? selectedAddress;
-  
+
   final List<String> attachedImages = [
     'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
     'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',
@@ -23,20 +23,22 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.pop(),
+          icon: Icon(Icons.arrow_back, color: colorScheme.onSurface),
+          onPressed: () => context.go('/buscar'),
         ),
         centerTitle: true,
         title: Text(
           'Solicitar servicio',
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w700,
-            color: const Color(0xFF0D2B45),
+            color: colorScheme.onSurface,
           ),
         ),
       ),
@@ -46,32 +48,27 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Sección: Adjuntar fotos
-              _buildSectionTitle('Adjuntar fotos'),
+              _buildSectionTitle('Adjuntar fotos', theme),
               const SizedBox(height: 12),
               _buildImageCarousel(),
               const SizedBox(height: 24),
 
-              // Sección: Fecha y hora preferidas
-              _buildSectionTitle('Fecha y hora preferidas'),
+              _buildSectionTitle('Fecha y hora preferidas', theme),
               const SizedBox(height: 12),
-              _buildDateTimeSection(),
+              _buildDateTimeSection(theme),
               const SizedBox(height: 24),
 
-              // Sección: Dirección
-              _buildSectionTitle('Dirección'),
+              _buildSectionTitle('Dirección', theme),
               const SizedBox(height: 12),
-              _buildAddressSection(),
+              _buildAddressSection(theme),
               const SizedBox(height: 24),
 
-              // Sección: Resumen
-              _buildSectionTitle('Resumen'),
+              _buildSectionTitle('Resumen', theme),
               const SizedBox(height: 12),
-              _buildSummarySection(),
+              _buildSummarySection(theme),
               const SizedBox(height: 32),
 
-              // Botón principal
-              _buildSubmitButton(),
+              _buildSubmitButton(colorScheme),
               const SizedBox(height: 24),
             ],
           ),
@@ -81,13 +78,12 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, ThemeData theme) {
     return Text(
       title,
-      style: const TextStyle(
-        fontSize: 16,
+      style: theme.textTheme.titleMedium?.copyWith(
         fontWeight: FontWeight.bold,
-        color: Colors.black87,
+        color: theme.colorScheme.onSurface,
       ),
     );
   }
@@ -97,13 +93,10 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
       height: 120,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: attachedImages.length + 1, // +1 para el botón de agregar
+        itemCount: attachedImages.length + 1,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          if (index == attachedImages.length) {
-            // Botón para agregar más fotos
-            return _buildAddImageButton();
-          }
+          if (index == attachedImages.length) return _buildAddImageButton();
           return _buildImageCard(attachedImages[index], index);
         },
       ),
@@ -134,15 +127,11 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
               },
               child: Container(
                 padding: const EdgeInsets.all(4),
-                decoration: const BoxDecoration(
-                  color: Colors.black54,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                  size: 16,
-                ),
+                child: const Icon(Icons.close, color: Colors.white, size: 16),
               ),
             ),
           ),
@@ -154,7 +143,6 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
   Widget _buildAddImageButton() {
     return GestureDetector(
       onTap: () {
-        // Aquí iría la lógica para seleccionar imágenes
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Función de agregar imagen')),
         );
@@ -163,26 +151,22 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
         width: 120,
         height: 120,
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
+          color: Theme.of(context).colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: Colors.grey.shade300,
-            style: BorderStyle.solid,
+            color: Theme.of(context).colorScheme.outline,
           ),
         ),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.add_photo_alternate_outlined,
-              size: 32,
-              color: Colors.grey,
-            ),
-            SizedBox(height: 8),
+            Icon(Icons.add_photo_alternate_outlined,
+                size: 32, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            const SizedBox(height: 8),
             Text(
               'Agregar',
               style: TextStyle(
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontSize: 12,
               ),
             ),
@@ -192,86 +176,81 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
     );
   }
 
-  Widget _buildDateTimeSection() {
+  Widget _buildDateTimeSection(ThemeData theme) {
+    final colorScheme = theme.colorScheme;
     return Column(
       children: [
-        // Campo de fecha
         GestureDetector(
-          onTap: () => _selectDate(),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.calendar_today, color: Colors.grey.shade600),
-                const SizedBox(width: 12),
-                Text(
-                  selectedDate ?? 'Seleccionar fecha',
-                  style: TextStyle(
-                    color: selectedDate != null ? Colors.black : Colors.grey.shade600,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
+          onTap: _selectDate,
+          child: _buildInputBox(
+            icon: Icons.calendar_today,
+            label: selectedDate ?? 'Seleccionar fecha',
+            colorScheme: colorScheme,
           ),
         ),
         const SizedBox(height: 12),
-        // Campo de hora
         GestureDetector(
-          onTap: () => _selectTime(),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.access_time, color: Colors.grey.shade600),
-                const SizedBox(width: 12),
-                Text(
-                  selectedTime ?? 'Seleccionar hora',
-                  style: TextStyle(
-                    color: selectedTime != null ? Colors.black : Colors.grey.shade600,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
+          onTap: _selectTime,
+          child: _buildInputBox(
+            icon: Icons.access_time,
+            label: selectedTime ?? 'Seleccionar hora',
+            colorScheme: colorScheme,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildAddressSection() {
+  Widget _buildInputBox({
+    required IconData icon,
+    required String label,
+    required ColorScheme colorScheme,
+  }) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: colorScheme.surfaceVariant,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          Icon(Icons.location_on, color: Colors.grey.shade600),
+          Icon(icon, color: colorScheme.onSurfaceVariant),
+          const SizedBox(width: 12),
+          Text(
+            label,
+            style: TextStyle(
+              color: label.contains('Seleccionar')
+                  ? colorScheme.onSurfaceVariant
+                  : colorScheme.onSurface,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAddressSection(ThemeData theme) {
+    final colorScheme = theme.colorScheme;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceVariant,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.location_on, color: colorScheme.onSurfaceVariant),
           const SizedBox(width: 12),
           Expanded(
             child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  selectedAddress = value;
-                });
-              },
+              onChanged: (value) => setState(() => selectedAddress = value),
+              style: TextStyle(color: colorScheme.onSurface),
               decoration: InputDecoration(
                 hintText: 'Ingresar dirección',
-                hintStyle: TextStyle(color: Colors.grey.shade600),
+                hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
               ),
@@ -282,66 +261,60 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
     );
   }
 
-  Widget _buildSummarySection() {
+  Widget _buildSummarySection(ThemeData theme) {
+    final colorScheme = theme.colorScheme;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Column(
         children: [
-          _buildSummaryRow('Trabajo:', 'Instalación de lámpara'),
+          _buildSummaryRow('Trabajo:', 'Instalación de lámpara', colorScheme),
           const SizedBox(height: 8),
-          _buildSummaryRow('Fecha:', selectedDate ?? '15 de julio de 2024'),
+          _buildSummaryRow('Fecha:', selectedDate ?? '15 de julio de 2024', colorScheme),
           const SizedBox(height: 8),
-          _buildSummaryRow('Hora:', selectedTime ?? '10:00 AM'),
+          _buildSummaryRow('Hora:', selectedTime ?? '10:00 AM', colorScheme),
           const SizedBox(height: 8),
-          _buildSummaryRow('Dirección:', selectedAddress ?? 'Calle Principal 123'),
+          _buildSummaryRow('Dirección:', selectedAddress ?? 'Calle Principal 123', colorScheme),
         ],
       ),
     );
   }
 
-  Widget _buildSummaryRow(String label, String value) {
+  Widget _buildSummaryRow(String label, String value, ColorScheme colorScheme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            color: Colors.black87,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: colorScheme.onSurface,
+            )),
         Expanded(
           child: Text(
             value,
             textAlign: TextAlign.right,
-            style: const TextStyle(
-              color: Colors.black54,
-            ),
+            style: TextStyle(color: colorScheme.onSurfaceVariant),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildSubmitButton() {
+  Widget _buildSubmitButton(ColorScheme colorScheme) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF0D2B45),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
+          backgroundColor: colorScheme.primary,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           padding: const EdgeInsets.symmetric(vertical: 16),
         ),
         onPressed: () {
-          // Aquí iría la lógica para enviar la solicitud
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Solicitud enviada correctamente'),
@@ -349,12 +322,12 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
             ),
           );
         },
-        child: const Text(
+        child: Text(
           'Enviar solicitud',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            color: Colors.white,
+            color: colorScheme.onPrimary,
           ),
         ),
       ),
@@ -362,7 +335,7 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
   }
 
   Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
+    final picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
@@ -370,19 +343,21 @@ class _SolicitarServicioPageState extends State<SolicitarServicioPage> {
     );
     if (picked != null) {
       setState(() {
-        selectedDate = '${picked.day} de ${_getMonthName(picked.month)} de ${picked.year}';
+        selectedDate =
+            '${picked.day} de ${_getMonthName(picked.month)} de ${picked.year}';
       });
     }
   }
 
   Future<void> _selectTime() async {
-    final TimeOfDay? picked = await showTimePicker(
+    final picked = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.now(),
     );
     if (picked != null) {
       setState(() {
-        selectedTime = '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
+        selectedTime =
+            '${picked.hour.toString().padLeft(2, '0')}:${picked.minute.toString().padLeft(2, '0')}';
       });
     }
   }
