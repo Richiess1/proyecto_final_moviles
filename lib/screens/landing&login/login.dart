@@ -22,10 +22,11 @@ class LoginPage extends StatelessWidget {
                 children: [
                   // Logo
                   Image.asset(
-                    "assets/logo.jpg",
-                    height: 150,
+                    'assets/logo.jpg',
+                    width: 260, // antes podía ser 100 o sin tamaño
+                    height: 260,
+                    fit: BoxFit.contain,
                   ),
-                  const SizedBox(height: 20),
 
                   // Texto FIXEA
                   Text(
@@ -38,10 +39,7 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(height: 20),
 
                   // Bienvenida
-                  Text(
-                    "Bienvenido!",
-                    style: theme.textTheme.titleLarge,
-                  ),
+                  Text("Bienvenido!", style: theme.textTheme.titleLarge),
                   const SizedBox(height: 20),
 
                   // Campo correo
