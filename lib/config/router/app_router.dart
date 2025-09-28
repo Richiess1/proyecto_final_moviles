@@ -35,9 +35,9 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const MyServicesPage(),
     ),
     GoRoute(
-      path: '/servicio/detalles',
-      name: DetailsServicePage.name,
-      builder: (context, state) => const DetailsServicePage(),
+      path: '/solicitar-servicio',
+      name: SolicitarServicioPage.name,
+      builder: (context, state) => const SolicitarServicioPage(),
     ),
   ],
 );

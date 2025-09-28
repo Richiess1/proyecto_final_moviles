@@ -8,3 +8,4 @@ export 'trabajos/servicios.dart';
 export 'trabajos/details_service.dart';
 
 
+export 'solicitar_servicio/solicitar_servicio.dart';

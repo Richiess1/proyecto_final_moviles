@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../providers/theme_provider.dart';
 import 'nav_bar.dart' as customNavBar;
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   static const String name = 'HomeScreen';
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkMode = ref.watch(themeNotifierProvider).isDarkMode;
-
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Fixea", style: TextStyle(fontWeight: FontWeight.bold)),
@@ -43,17 +39,6 @@ class HomeScreen extends ConsumerWidget {
                   borderSide: BorderSide.none,
                 ),
               ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // 🔥 Aquí agregamos el switch de tema
-            SwitchListTile(
-              title: const Text("Modo oscuro"),
-              value: isDarkMode,
-              onChanged: (_) {
-                ref.read(themeNotifierProvider.notifier).toggleDarkmode();
-              },
             ),
 
             const SizedBox(height: 20),
@@ -137,3 +122,5 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 }
+
+

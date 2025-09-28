@@ -107,19 +107,6 @@ class CategoriesPage extends StatelessWidget {
         ),
       ),
 
-      // Botón flotante para solicitar servicio
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          context.go('/solicitar-servicio');
-        },
-        backgroundColor: const Color(0xFF0D2B45),
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text(
-          'Solicitar Servicio',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-        ),
-      ),
-
       // Bottom nav inline
       bottomNavigationBar: const NavBar(currentIndex: 1),
     );
@@ -234,7 +221,7 @@ class _RecommendedTile extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Texto (con límites de líneas para evitar "vertical letters")
+              // Texto (con límites de líneas para evitar “vertical letters”)
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
