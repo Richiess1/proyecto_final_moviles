@@ -8,7 +8,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +23,6 @@ class ProfilePage extends StatelessWidget {
           'Perfil',
           style: textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.w700,
-            color: Colors.black87,
           ),
         ),
       ),
@@ -49,17 +50,19 @@ class ProfilePage extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 'Electricista',
-                style: textTheme.titleMedium?.copyWith(color: Colors.black54),
+                style: textTheme.titleMedium?.copyWith(
+                  color: textTheme.bodyMedium?.color?.withOpacity(0.7),
+                ),
               ),
               const SizedBox(height: 12),
 
-              // Botón Filled Contactar
+              // Botón Contactar (ahora usa tema dinámico)
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
                   style: FilledButton.styleFrom(
-                    backgroundColor: const Color(0xFFF1F3F5),
-                    foregroundColor: const Color(0xFF0D2B45),
+                    backgroundColor: colorScheme.surfaceVariant,
+                    foregroundColor: colorScheme.onSurface,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -75,6 +78,25 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
+              // Botón Cerrar sesión
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton.tonal(
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () => context.go('/'),
+                  child: const Text(
+                    'Cerrar sesión',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
 
               // Servicios - card
               _SectionTitle(text: 'Servicios'),
@@ -118,7 +140,7 @@ class ProfilePage extends StatelessWidget {
                           const SizedBox(height: 6),
                           Text(
                             w.caption,
-                            style: Theme.of(context).textTheme.bodyMedium
+                            style: textTheme.bodyMedium
                                 ?.copyWith(fontWeight: FontWeight.w600),
                           ),
                         ],
@@ -159,9 +181,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-
-      // Bottom nav inline
-      bottomNavigationBar: customNavBar.NavBar(currentIndex: 3),
+      bottomNavigationBar: const customNavBar.NavBar(currentIndex: 3),
     );
   }
 }
@@ -176,9 +196,10 @@ class _SectionTitle extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         text,
-        style: Theme.of(
-          context,
-        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+        style: Theme.of(context)
+            .textTheme
+            .titleLarge
+            ?.copyWith(fontWeight: FontWeight.w800),
       ),
     );
   }
@@ -191,10 +212,12 @@ class _ServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.grey.shade300),
+        side: BorderSide(color: colorScheme.outline.withOpacity(0.3)),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
@@ -202,7 +225,7 @@ class _ServiceCard extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 20, color: const Color(0xFF0D2B45)),
+            Icon(icon, size: 20, color: colorScheme.primary),
             const SizedBox(width: 8),
             Text(label, style: const TextStyle(fontWeight: FontWeight.w700)),
           ],
@@ -234,11 +257,13 @@ class _TestimonialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Card(
       elevation: 0,
+      color: colorScheme.surface,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(color: colorScheme.outline.withOpacity(0.2)),
         borderRadius: BorderRadius.circular(14),
       ),
       child: Padding(
@@ -263,7 +288,7 @@ class _TestimonialCard extends StatelessWidget {
                     Text(
                       when,
                       style: textTheme.bodySmall?.copyWith(
-                        color: Colors.black54,
+                        color: textTheme.bodySmall?.color?.withOpacity(0.6),
                       ),
                     ),
                   ],

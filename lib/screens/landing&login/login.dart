@@ -7,7 +7,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -18,26 +22,25 @@ class LoginPage extends StatelessWidget {
                 children: [
                   // Logo
                   Image.asset(
-                    "assets/logo.jpg", // mismo logo que en landing
+                    "assets/logo.jpg",
                     height: 150,
                   ),
                   const SizedBox(height: 20),
 
                   // Texto FIXEA
-                  const Text(
+                  Text(
                     "FIXEA",
-                    style: TextStyle(
-                      fontSize: 36,
+                    style: theme.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF0D2B45),
+                      color: colorScheme.primary,
                     ),
                   ),
                   const SizedBox(height: 20),
 
-                  // Bienvenido
-                  const Text(
+                  // Bienvenida
+                  Text(
                     "Bienvenido!",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: theme.textTheme.titleLarge,
                   ),
                   const SizedBox(height: 20),
 
@@ -45,6 +48,8 @@ class LoginPage extends StatelessWidget {
                   TextField(
                     decoration: InputDecoration(
                       hintText: "Correo",
+                      filled: true,
+                      fillColor: colorScheme.surfaceVariant.withOpacity(0.1),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -61,6 +66,8 @@ class LoginPage extends StatelessWidget {
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Contraseña",
+                      filled: true,
+                      fillColor: colorScheme.surfaceVariant.withOpacity(0.1),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -72,14 +79,15 @@ class LoginPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
 
-                  // Olvidaste tu contraseña
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {},
-                      child: const Text(
+                      child: Text(
                         "¿Olvidaste tu contraseña?",
-                        style: TextStyle(color: Colors.black54, fontSize: 14),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: colorScheme.secondary,
+                        ),
                       ),
                     ),
                   ),
@@ -105,26 +113,20 @@ class LoginPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  // Botón Iniciar sesión / registrarse
+                  // Botón login
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF0D2B45),
+                        backgroundColor: colorScheme.primary,
+                        foregroundColor: colorScheme.onPrimary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
-                      onPressed: () {
-                        // Aquí iría tu lógica de validación (ejemplo: Firebase, API, etc.)
-                        // Si es válido, navega al Home
-                        context.go('/home');
-                      },
-                      child: const Text(
-                        "Iniciar Sesión / Registrarse",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
+                      onPressed: () => context.go('/home'),
+                      child: const Text("Iniciar Sesión / Registrarse"),
                     ),
                   ),
                 ],

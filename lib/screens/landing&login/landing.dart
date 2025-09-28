@@ -7,7 +7,11 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -17,39 +21,39 @@ class LandingPage extends StatelessWidget {
               children: [
                 // Logo
                 Image.asset(
-                  "assets/logo.jpg", // Asegúrate de tener el logo en assets
+                  "assets/logo.jpg",
                   height: 150,
                 ),
                 const SizedBox(height: 20),
 
                 // Texto FIXEA
-                const Text(
+                Text(
                   "FIXEA",
-                  style: TextStyle(
-                    fontSize: 36,
+                  style: theme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF0D2B45),
+                    color: colorScheme.primary,
                   ),
                 ),
                 const SizedBox(height: 20),
 
                 // Subtítulo
-                const Text(
+                Text(
                   "Conecta con Profesionales del Hogar",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 12),
 
                 // Texto descriptivo
-                const Text(
+                Text(
                   "Encuentra y contrata expertos para cualquier tarea en tu hogar. "
                   "Fixea te conecta con profesionales confiables y calificados.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, color: Colors.black54),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.textTheme.bodyMedium?.color?.withOpacity(0.7),
+                  ),
                 ),
                 const SizedBox(height: 30),
 
@@ -58,7 +62,8 @@ class LandingPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0D2B45),
+                      backgroundColor: colorScheme.primary,
+                      foregroundColor: colorScheme.onPrimary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -70,10 +75,7 @@ class LandingPage extends StatelessWidget {
                         MaterialPageRoute(builder: (_) => const LoginPage()),
                       );
                     },
-                    child: const Text(
-                      "Comenzar",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
+                    child: const Text("Comenzar"),
                   ),
                 )
               ],

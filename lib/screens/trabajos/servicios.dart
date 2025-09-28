@@ -8,7 +8,9 @@ class MyServicesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -23,7 +25,7 @@ class MyServicesPage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView( // 👈 CAMBIO IMPORTANTE
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +36,7 @@ class MyServicesPage extends StatelessWidget {
                   hintText: "Buscar trabajos",
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
-                  fillColor: const Color(0xFFF1F3F5),
+                  fillColor: colorScheme.surfaceVariant.withOpacity(0.3),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -116,9 +118,15 @@ class _FilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ChoiceChip(
       label: Text(label),
       selected: selected,
+      selectedColor: colorScheme.primary.withOpacity(0.2),
+      labelStyle: TextStyle(
+        color: selected ? colorScheme.primary : null,
+      ),
       onSelected: (_) {},
     );
   }
@@ -141,20 +149,42 @@ class _JobTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: const Icon(Icons.work_outline),
-      title: Text("Cliente: $client"),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(date),
-          Text(service, style: const TextStyle(color: Colors.black54)),
-        ],
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: Icon(Icons.work_outline, color: colorScheme.primary),
+        title: Text(
+          "Cliente: $client",
+          style: textTheme.titleMedium,
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(date, style: textTheme.bodySmall),
+            Text(
+              service,
+              style: textTheme.bodySmall?.copyWith(
+                color: textTheme.bodySmall?.color?.withOpacity(0.7),
+              ),
+            ),
+          ],
+        ),
+        trailing: actionText != null
+            ? TextButton(
+                onPressed: onTap,
+                child: Text(
+                  actionText!,
+                  style: TextStyle(color: colorScheme.primary),
+                ),
+              )
+            : null,
+        onTap: onTap,
       ),
-      trailing: actionText != null
-          ? TextButton(onPressed: () {}, child: Text(actionText!))
-          : null,
-      onTap: onTap,
     );
   }
 }
