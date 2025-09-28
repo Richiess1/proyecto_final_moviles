@@ -5,5 +5,6 @@ export 'profile/profile.dart';
 export 'home/home_screen.dart';
 export 'home/nav_bar.dart';
 export 'trabajos/servicios.dart';
+export 'trabajos/details_service.dart';
 
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../home/nav_bar.dart';
 
 class MyServicesPage extends StatelessWidget {
@@ -69,10 +70,11 @@ class MyServicesPage extends StatelessWidget {
                 service: "Reparación de tuberías",
               ),
               const _JobTile(
-                client: "Carlos López",
-                date: "20 de julio, 2:00 PM",
-                service: "Instalación de lámparas",
+                client: "Ana García",
+                date: "1 de julio",
+                service: "Reparación de muebles",
               ),
+              
 
               const SizedBox(height: 24),
 
@@ -84,11 +86,16 @@ class MyServicesPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              const _JobTile(
-                client: "Ana García",
-                date: "1 de julio",
-                service: "Reparación de muebles",
+              
+              _JobTile(
+                client: "Carlos Ramirez",
+                date: "20 de julio, 2:00 PM",
+                service: "Instalación de lámparas",
                 actionText: "Calificar",
+                onTap: () {
+                  // Navegar a la pantalla de detalles
+                  GoRouter.of(context).go('/servicio/detalles');
+                },
               ),
               const _JobTile(
                 client: "Juan Pérez",
@@ -125,12 +132,14 @@ class _JobTile extends StatelessWidget {
   final String date;
   final String service;
   final String? actionText;
+  final VoidCallback? onTap;
 
   const _JobTile({
     required this.client,
     required this.date,
     required this.service,
     this.actionText,
+    this.onTap,
   });
 
   @override
@@ -148,6 +157,7 @@ class _JobTile extends StatelessWidget {
       trailing: actionText != null
           ? TextButton(onPressed: () {}, child: Text(actionText!))
           : null,
+      onTap: onTap,
     );
   }
 }
