@@ -36,7 +36,7 @@ class MyServicesPage extends StatelessWidget {
                   hintText: "Buscar trabajos",
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
-                  fillColor: colorScheme.surfaceVariant.withOpacity(0.3),
+                  fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.3),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,

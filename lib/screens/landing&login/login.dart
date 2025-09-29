@@ -47,7 +47,7 @@ class LoginPage extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "Correo",
                       filled: true,
-                      fillColor: colorScheme.surfaceVariant.withOpacity(0.1),
+                      fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.1),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -65,7 +65,7 @@ class LoginPage extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: "Contraseña",
                       filled: true,
-                      fillColor: colorScheme.surfaceVariant.withOpacity(0.1),
+                      fillColor: colorScheme.surfaceContainerHighest.withOpacity(0.1),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
