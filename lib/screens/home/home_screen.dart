@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/theme_provider.dart';
 import 'nav_bar.dart' as customNavBar;
+import 'package:go_router/go_router.dart';
+
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -13,12 +15,15 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Fixea", style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          "Fixea",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none),
-            onPressed: () {},
-          )
+            onPressed: () => context.push('/notificaciones'),
+          ),
         ],
       ),
       body: Padding(
@@ -69,11 +74,17 @@ class HomeScreen extends ConsumerWidget {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  _serviceCard("Fontanería", "Mañana, 9:00 AM",
-                      "https://cdn-icons-png.flaticon.com/512/3063/3063828.png"),
+                  _serviceCard(
+                    "Fontanería",
+                    "Mañana, 9:00 AM",
+                    "https://cdn-icons-png.flaticon.com/512/3063/3063828.png",
+                  ),
                   const SizedBox(width: 12),
-                  _serviceCard("Electricidad", "Pasado mañana, 2:00 PM",
-                      "https://cdn-icons-png.flaticon.com/512/2965/2965278.png"),
+                  _serviceCard(
+                    "Electricidad",
+                    "Pasado mañana, 2:00 PM",
+                    "https://cdn-icons-png.flaticon.com/512/2965/2965278.png",
+                  ),
                 ],
               ),
             ),
@@ -87,9 +98,14 @@ class HomeScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Card(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
               child: ListTile(
-                leading: const Icon(Icons.local_offer, color: Colors.deepPurple),
+                leading: const Icon(
+                  Icons.local_offer,
+                  color: Colors.deepPurple,
+                ),
                 title: const Text("20% de descuento en limpieza"),
                 subtitle: const Text("Solo por tiempo limitado"),
                 trailing: Image.network(
@@ -117,19 +133,29 @@ class HomeScreen extends ConsumerWidget {
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(16)),
-                child: Image.network(imageUrl, fit: BoxFit.cover, width: double.infinity),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(16),
+                ),
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(title,
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              child: Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(subtitle, style: TextStyle(color: Colors.grey.shade600)),
+              child: Text(
+                subtitle,
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
             ),
           ],
         ),
