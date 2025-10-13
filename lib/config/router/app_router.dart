@@ -1,51 +1,45 @@
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
-import '../../screens/screens.dart'; // screens.dart
+
+// IMPORTA TUS 5 PANTALLAS
+import '../../screens/landing_login/landing_page.dart';
+import '../../screens/landing_login/client_login_page.dart';
+import '../../screens/landing_login/client_register_page.dart';
+import '../../screens/landing_login/provider_login_page.dart';
+import '../../screens/landing_login/provider_register_page.dart';
 
 final GoRouter appRouter = GoRouter(
+  initialLocation: '/',
   routes: [
+    // 1) Landing (compartida)
     GoRoute(
       path: '/',
       name: LandingPage.name,
       builder: (context, state) => const LandingPage(),
     ),
+
+    // 2) Auth CLIENTE
     GoRoute(
-      path: '/login',
-      name: LoginPage.name,
-      builder: (context, state) => const LoginPage(),
+      path: '/auth/client/login',
+      name: ClientLoginPage.name,
+      builder: (context, state) => const ClientLoginPage(),
+    ),
+    GoRoute(
+      path: '/auth/client/register',
+      name: ClientRegisterPage.name,
+      builder: (context, state) => const ClientRegisterPage(),
     ),
 
+    // 3) Auth PROVEEDOR
     GoRoute(
-      path: '/buscar',
-      name: CategoriesPage.name,
-      builder: (context, state) => const CategoriesPage(),
+      path: '/auth/provider/login',
+      name: ProviderLoginPage.name,
+      builder: (context, state) => const ProviderLoginPage(),
     ),
     GoRoute(
-      path: '/perfil',
-      name: ProfilePage.name,
-      builder: (context, state) => const ProfilePage(),
-    ),
-    GoRoute(
-      path: '/home',
-      name: HomeScreen.name,
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/servicios',
-      name: MyServicesPage.name,
-      builder: (context, state) => const MyServicesPage(),
-    ),
-    GoRoute(
-      path: '/servicio/detalles',
-      name: DetailsServicePage.name,
-      builder: (context, state) => const DetailsServicePage(),
-    ),    GoRoute(
-      path: '/solicitar-servicio',
-      name: SolicitarServicioPage.name,
-      builder: (context, state) => const SolicitarServicioPage(),
-    ),GoRoute(
-      path: '/notificaciones',
-      name: NotificacionesPage.name,
-      builder: (context, state) => const NotificacionesPage(),
+      path: '/auth/provider/register',
+      name: ProviderRegisterPage.name,
+      builder: (context, state) => const ProviderRegisterPage(),
     ),
   ],
 );
